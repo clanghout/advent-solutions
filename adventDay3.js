@@ -27,7 +27,6 @@ function distToMidle(value, ringIndex, sideLength){
         (lastCorner-((sideLength-1)*2)) - maxDist,
         (lastCorner-((sideLength-1)*3)) - maxDist
     ];
-    debugger;
     // Lastcorner is definately bigger than value
     // now we need to find closest middle
     let minDistMid = maxDist;
@@ -39,12 +38,12 @@ function distToMidle(value, ringIndex, sideLength){
     }
     return minDistMid;
 }
-
-console.log("test 1 : 0",computeAdvent3(1));
-console.log("test 12 : 3",computeAdvent3(12));
-console.log("test 23 : 2",computeAdvent3(23));
-console.log("test 1024 : 31",computeAdvent3(1024));
-console.log("input",computeAdvent3(input3));
+console.log("day 3");
+testAdvent(1, 0,computeAdvent3);
+testAdvent(12, 3,computeAdvent3);
+testAdvent(23, 2,computeAdvent3);
+testAdvent(1024, 31,computeAdvent3);
+testAdvent(input3, false, computeAdvent3);
 
 
 // 37 36  35  34  33  32 31

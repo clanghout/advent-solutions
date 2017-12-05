@@ -29,10 +29,10 @@ function computeAdvent5Part2(inp) {
     return steps;
 }
 
-
+console.log("day 5");
 testAdvent([0,3,0,1,-3],5,computeAdvent5);
 testAdvent(input5,351282,computeAdvent5);
 
-
+console.log("day 5 part 2");
 testAdvent([0,3,0,1,-3],10,computeAdvent5Part2);
 testAdvent(input5,24568703,computeAdvent5Part2);

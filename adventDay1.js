@@ -36,19 +36,19 @@ function computeAdvent1part2(inp) {
     return total;
 }
 
-console.log("Advent 1:");
-console.log("test1 1122 : 3", computeAdvent1("1122"));
-console.log("test2 1111 : 4", computeAdvent1("1111"));
-console.log("test3: 1234 : 0", computeAdvent1("1234"));
-console.log("test4 91212129 : 9", computeAdvent1("91212129"));
-console.log("answer", computeAdvent1(input1));
+console.log("Day 1");
+testAdvent("1122", 3, computeAdvent1);
+testAdvent("1111", 4, computeAdvent1);
+testAdvent("1234", 0, computeAdvent1);
+testAdvent("91212129", 9, computeAdvent1);
+testAdvent(input1,false,computeAdvent1);
 
 
-console.log("Advent 1 part 2:");
-console.log("test1 1212 : 6", computeAdvent1part2("1212"));
-console.log("test2 1221 : 0", computeAdvent1part2("1221"));
-console.log("test3: 123425 : 4", computeAdvent1part2("123425"));
-console.log("test4 123123 : 12", computeAdvent1part2("123123"));
-console.log("test5 12131415 : 4", computeAdvent1part2("12131415"));
-console.log("test5 1213141512131415 : 4", computeAdvent1part2("1213141512131415"));
-console.log("answer", computeAdvent1part2(input1));
+console.log("Day 1 part 2:");
+testAdvent("1212", 6, computeAdvent1part2);
+testAdvent("1221", 0, computeAdvent1part2);
+testAdvent("123425", 4, computeAdvent1part2);
+testAdvent("123123", 12, computeAdvent1part2);
+testAdvent("12131415", 4, computeAdvent1part2);
+testAdvent("1213141512131415", 4, computeAdvent1part2);
+testAdvent(input1, false, computeAdvent1part2);

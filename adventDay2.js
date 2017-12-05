@@ -35,7 +35,7 @@ function computeAdvent2part2(inp){
     for(let i = 0; i < inp.length; i++){
         let curRow = inp[i];
         let res = findEquals(curRow);
-        console.log("adding ",res);
+        // console.log("adding ",res);
         total+= res;
     }
     return total;
@@ -54,8 +54,9 @@ function findEquals(curRow){
 }
 
 console.log("Day 2");
-// console.log("test 1", computeAdvent2(test1));
-// console.log("input", computeAdvent2(input2));
+testAdvent(test1,18,computeAdvent2);
+testAdvent(input2, false, computeAdvent2);
 
-console.log("test 1", computeAdvent2part2(test2));
-console.log("input", computeAdvent2part2(input2));
+console.log("Day 2 part 2");
+testAdvent(test2,9, computeAdvent2part2);
+testAdvent(input2,false, computeAdvent2part2);
