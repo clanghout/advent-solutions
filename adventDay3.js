@@ -1,48 +1,49 @@
 let input3 = 368078;
-function computeAdvent3(ind){
-    if(ind === 1){
+
+function computeAdvent3(ind) {
+    if (ind === 1) {
         return 0;
     }
     let steps = 0;
     let ring = determineRing(ind);
-
-
-    return ring[0] + distToMidle(ind, ring[0],ring[1]);
+    return ring[0] + distToMidle(ind, ring[0], ring[1]);
 }
 
-function determineRing(ind){
+function determineRing(ind) {
     let ring = 1;
     let index = 0;
-    while (ind > (ring*ring)){
+    while (ind > (ring * ring)) {
         ring += 2;
         index++;
     }
-    return [index,ring];
+    return [index, ring];
 }
-function distToMidle(value, ringIndex, sideLength){
-    let lastCorner = Math.pow(sideLength,2);
-    let maxDist = (Math.floor(sideLength/2));
+
+function distToMidle(value, ringIndex, sideLength) {
+    let lastCorner = Math.pow(sideLength, 2);
+    let maxDist = (Math.floor(sideLength / 2));
     let Middle = [lastCorner - maxDist,
-        (lastCorner-(sideLength-1)) - maxDist,
-        (lastCorner-((sideLength-1)*2)) - maxDist,
-        (lastCorner-((sideLength-1)*3)) - maxDist
+        (lastCorner - (sideLength - 1)) - maxDist,
+        (lastCorner - ((sideLength - 1) * 2)) - maxDist,
+        (lastCorner - ((sideLength - 1) * 3)) - maxDist
     ];
-    // Lastcorner is definately bigger than value
+    // Lastcorner is definitely bigger than value
     // now we need to find closest middle
     let minDistMid = maxDist;
-    for(let i in Middle){
-        let prob = Math.abs(Middle[i]-value);
-        if(prob < minDistMid){
+    for (let i in Middle) {
+        let prob = Math.abs(Middle[i] - value);
+        if (prob < minDistMid) {
             minDistMid = prob;
         }
     }
     return minDistMid;
 }
+
 console.log("day 3");
-testAdvent(1, 0,computeAdvent3);
-testAdvent(12, 3,computeAdvent3);
-testAdvent(23, 2,computeAdvent3);
-testAdvent(1024, 31,computeAdvent3);
+testAdvent(1, 0, computeAdvent3);
+testAdvent(12, 3, computeAdvent3);
+testAdvent(23, 2, computeAdvent3);
+testAdvent(1024, 31, computeAdvent3);
 testAdvent(input3, false, computeAdvent3);
 
 
