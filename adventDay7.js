@@ -9,10 +9,10 @@ let test7 = [
     "fwft (72) -> ktlj, cntj, xhth",
     "qoyq (66)",
     "padx (45) -> pbga, havc, qoyq",
-    "tknk (41) -> ugml, padx, fwft",
     "jptl (61)",
     "ugml (68) -> gyxo, ebii, jptl",
     "gyxo (61)",
+    "tknk (41) -> ugml, padx, fwft",
     "cntj (57)",];
 
 
@@ -59,7 +59,7 @@ function fillChilds(fullList, parentName){
 
 function getWeightSum(childList){
     let sum = 0;
-    childList.forEach( child => sum += sum.weight);
+    childList.forEach( child => sum += parseInt(child.weight));
     return sum;
 }
 
@@ -72,6 +72,12 @@ function last(list){
     return list[lastIndex-1];
 }
 
+function pushAllChilds(node, curNodeList) {
+
+    while(!isLeafnode(node)) {
+        node.childs.forEach(n => curNodeList.push(n));
+    }
+}
 
 function computeAdvent7part2(inp){
     let parsed = inp.map(a => parseLine(a));
@@ -79,15 +85,61 @@ function computeAdvent7part2(inp){
     let names = parsed.map(a => a.name);
     let hasChilds = parsed.filter(line => line.childs.length > 0);
     hasChilds.forEach(e => fillChilds(parsed,e.name));
-    // parsed.map(a => console.log(getWeightSum(a.childs)));
     let rootNode = parsed.filter(a => a.name === rootName)[0];
-
+    let childSums = [];
+    rootNode.childs.forEach(a => childSums.push([getWeightSum(a.childs)+parseInt(a.weight),a]));
+    console.log("tree:",rootNode);
     let curNode = [rootNode];
-    while(!isLeafnode(last(curNode))){
-        curNode.push(curNode.childs[0]);
-    }
-    console.log("leaf",curNode);
+    pushAllChilds(curNode);
+    while(curNode.length>0){
+        let processingNode = curNode.pop();
+        if(processingNode.childs.length > 0) {
+            let cantCompute = true;
+            processingNode.forEach(a => cantCompute = !a.hasOwnProperty(combinedWeight));
+            if(canCompute){
 
+                processingNode.combinedWeight = getWeightSum(processingNode.childs) + parseInt(processingNode.weight)
+            }
+            else{
+                pushAllChilds(processingNode,curNode)
+            }
+        }
+        else{
+            processingNode.combinedWeight = parseInt(processingNode.weight);
+        }
+    }
+    // Start breadth passthrough
+    // let curNode = [rootNode];
+    // // TODO pass through entire tree
+    // while(!isLeafnode(last(curNode))){
+    //     if(last(curNode).childs.length > 0) {
+    //         let childSums = [];
+    //         last(curNode).childs.forEach(a => childSums.push([getWeightSum(a.childs)+parseInt(a.weight),a]));
+    //         console.log("childsums", childSums);
+    //         let minVal = [99999999,{}];
+    //         let maxVal = [0,{}];
+    //         let mostSeen = [-1];
+    //         let seenCount = {};
+    //         childSums.forEach(a => {
+    //             minVal = a[0] < minVal[0] ? a : minVal;
+    //             maxVal = a[0] > maxVal[0] ? a : maxVal;
+    //             seenCount[a[0]] = seenCount.hasOwnProperty(a[0]) ? seenCount[a[0]]+1 : 1;
+    //             if(seenCount.hasOwnProperty(mostSeen))
+    //             mostSeen = seenCount[a[0]]>seenCount[mostSeen[0]]?a:mostSeen;
+    //             else
+    //                 mostSeen = a;
+    //         });
+    //         // if unbalanced
+    //
+    //         if(seenCount[mostSeen[0]] !== childSums.length){
+    //             console.log(`maxVal ${maxVal[0]} minVal ${minVal[0]} own weight ${parseInt(mostSeen[1].weight)}, mostSeen`,maxVal);
+    //         return mostSeen[0]<maxVal[0] ? parseInt(maxVal[1].weight) - (maxVal[0] - mostSeen[0]) : parseInt(minVal[1].weight) + (mostSeen[0] - minVal[0]);}
+    //         else last(curNode).weight =
+    //         console.log("seencount",seenCount);
+    //         curNode.push(last(curNode).childs[0]);
+    //     }
+    // }
+    // console.log("leaf",curNode);
 
     return parsed;
 }
@@ -98,8 +150,8 @@ function computeAdvent7part2(inp){
 // testAdvent(test7,"tknk",computeAdvent7);
 // testAdvent(input7,false,computeAdvent7);
 
-testAdvent(input7,60,computeAdvent7part2);
-// testAdvent(input7,false,computeAdvent7part2);
+testAdvent(test7,60,computeAdvent7part2);
+testAdvent(input7,false,computeAdvent7part2);
 
 //
 //

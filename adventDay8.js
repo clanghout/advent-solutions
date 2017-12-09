@@ -23,13 +23,10 @@ function parseLine(line){
 
 function computeAdvent8(inp) {
     let parsedInp = inp.map(a => parseLine(a));
-    console.log(parsedInp);
     let memory = [];
     parsedInp.forEach(a => doComputation(a,memory));
-    console.log("mem: ",memory);
     let maxValue = 0;
     for(let i = 0;i<Object.keys(memory).length;i++){
-        console.log("memory not empty??");
         if(memory[Object.keys(memory)[i]]>maxValue)
             maxValue = memory[Object.keys(memory)[i]];
     }
@@ -98,15 +95,16 @@ function doCompare(val1, operator, val2){
 }
 
 function computeAdvent8part2(inp) {
-    var maxValue = 0;
+    let maxValue = 0;
     let parsedInp = inp.map(a => parseLine(a));
-    console.log(parsedInp);
     let memory = [];
     parsedInp.forEach(a => maxValue = doComputationPart2(a,memory,maxValue));
     return maxValue;
-
-
 }
 
-console.log(computeAdvent8part2(test8));
-console.log(computeAdvent8part2(input8));
+console.log("Day 8");
+testAdvent(test8,1,computeAdvent8);
+testAdvent(input8,false,computeAdvent8);
+
+testAdvent(test8,10,computeAdvent8part2);
+testAdvent(input8,false,computeAdvent8part2);
