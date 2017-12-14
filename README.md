@@ -16,7 +16,7 @@ To run the code I open index.html in the browser. The console is used to display
 |8|✅|✅||
 |9|✅|✅||
 |10||||
-|11|✅|✅||
+|11|✅|✅|https://www.redblobgames.com/grids/hexagons/|
 |12||||
 |13||||
 |14||||
