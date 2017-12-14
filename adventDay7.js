@@ -13,8 +13,8 @@ function parseLine(inputString) {
 
     let carries = inpProcessing === "" ? [] : inpProcessing.split(",");
     carries = carries.map(a => a.trim());
-
-    return {"name": name, "weight": weight, "childs": carries};
+    // console.log("###",weight);
+    return {"name": name, "weight": parseInt(weight), "childs": carries};
 }
 
 function computeAdvent7(inp) {
@@ -44,7 +44,7 @@ function fillChilds(fullList, parentName) {
 
 function getWeightSum(childList) {
     let sum = 0;
-    childList.forEach(child => sum += parseInt(child.weight));
+    childList.forEach(child => sum += parseInt(child.weight) + getWeightSum(child.childs));
     return sum;
 }
 
@@ -70,16 +70,64 @@ function computeAdvent7part2(inp) {
     let hasChilds = parsed.filter(line => line.childs.length > 0);
     hasChilds.forEach(e => fillChilds(parsed, e.name));
     let rootNode = parsed.filter(a => a.name === rootName)[0];
-    let childSums = [];
-    rootNode.childs.forEach(a => childSums.push([getWeightSum(a.childs) + parseInt(a.weight), a]));
-    // Start breadth passthrough
-    // TODO
-    return 0;
+    console.log("tree", rootNode);
+    let cn = rootNode;
+    let allResults = [getDifferentResults(cn)];
+
+    do {
+        if(cn.childs !== undefined){
+        let newCn = [];
+        let interRes = cn.childs.map(a => {
+            let results = getDifferentResults(a);
+            newCn.push(a);
+            return results;
+        });
+        console.log('$ interrres', interRes);
+        cn = newCn;
+        interRes.forEach(a => allResults.push(a));
+        console.log("cn", cn);
+        }
+        else {
+            cn.length = 0;
+        }
+    }
+    while (cn.length > 0);
+    console.log(allResults);
+    let interSum = allResults.filter(a => a[0] !== false);
+    console.log("intersum", interSum);
+    let sums = _.last(interSum);
+    console.log('sums', sums);
+    let mostOccuring = _.partition(sums[0], (weight) => sums[0].filter(a => a === weight).length === 1);
+    let uniqueVal = mostOccuring[0][0];
+    console.log("sums", sums);
+
+    console.log("MANUAL!!!",rootNode.childs[3].childs[1].childs.map(child => getWeightSum(child.childs) + child.weight));
+    console.log("MANUAL!!!",rootNode.childs[3].childs[1].childs.map(child => child.weight));
+    return sums[1][sums[0].indexOf(uniqueVal)] + (mostOccuring[1][0] - uniqueVal);
+    // return mostOccuring;
 }
+
+// Node => [243,243,251]
+function getDifferentResults(Node) {
+
+    let weights = Node.childs.map(child => getWeightSum(child.childs) + child.weight);
+    let ownWeights = Node.childs.map(child => child.weight);
+    console.log("$ uniq", _.uniq(weights));
+    console.log("$ weights", weights);
+
+    let hasDifference = _.uniq(weights).length > 1;
+    if (hasDifference) {
+        return [weights, ownWeights, Node];
+    }
+    else {
+        return [false, false, Node];
+    }
+}
+
 
 console.log("Day 7");
 testAdvent(test7, "tknk", computeAdvent7);
 testAdvent(input7, false, computeAdvent7);
 
-testAdvent(test7, 60, computeAdvent7part2);
+// testAdvent(test7, 60, computeAdvent7part2);
 testAdvent(input7, false, computeAdvent7part2);
