@@ -1,9 +1,10 @@
-let n = "n"//[1,0,0];
-let s = "s"//[-1,0,0];
-let ne = "ne"//[0,1,0];
-let sw = "sw"//[0,-1,0];
-let se = "se"//[0,0,1];
-let nw = "nw"//[0,0,-1];
+//        z,x,y
+let n =  [0,-1,1];//"n"//
+let s =  [0,1,-1];//"s"//
+let ne = [-1,0,1];//"ne"//
+let sw = [1,0,-1];//"sw"//
+let se = [-1,1,0];//"se"//
+let nw = [1,-1,0];//"nw"//
 // east is always positive, and pure north too.
 // Col1: up/down Col2:ne/sw Col3: nw/se
 // each column cancels out outomatically when adding.
@@ -15,38 +16,34 @@ let test112 = [ne,ne,sw,sw]; //0
 let test113 = [ne,ne,s,s];//2
 let test114 = [se,sw,se,sw,sw];//4
 
-function computeAdvent11(inp) {
-    let total = [];
-    total['n']=0;
-    total['s']=0;
-    total['e']=0;
-    total['w']=0;
-    total['lr']=0;//diagonal diff
-    total['rl']=0;
-
-    inp.forEach(a => {
-        if(a.length >1){
-            if(a ==="ne"|| a ==="sw"){
-                total['rl']++;
-            }else{
-                total['lr']++;
-            }
-        }
-        a.split('').forEach(b => total[b] += 1)
-    });
-    let totalNS = getDiff(total['n'],total['s']);
-    let totalEW = getDiff(total['e'],total['w']);
-    // return Math.max(totalEW,totalNS)-Math.min(total['e'],total['w']);
-    return totalNS-totalEW;
+function computeAdvent11part2(inp) {
+    return computeAdvent11(inp,true);
 }
 
-function getDiff(a, b) {
-    let absA = Math.abs(a);
-    let absB = Math.abs(b);
-    return a>b ? a-b : b-a;
+function computeAdvent11(inp, part2) {
+    let total = [0,0,0];
+    let maxTotal = 0;
+    inp.forEach(a => {
+        // console.log("a",a);
+        total = _.zipWith(total, a, _.add);
+        let potentialMax = getDist(total);
+        maxTotal = maxTotal<potentialMax?potentialMax:maxTotal;
+    });
+    console.log("Curr coords",total);
+    if(part2)
+        return maxTotal;
+    return getDist(total);
+}
+
+
+
+function getDist(coords) {
+    return _.sum(coords.map(a => Math.abs(a)))/2;
 }
 
 testAdvent(test11,3,computeAdvent11);
 testAdvent(test112,0,computeAdvent11);
 testAdvent(test113,2,computeAdvent11);
-testAdvent(test114,4,computeAdvent11);
+testAdvent(test114,3,computeAdvent11);
+testAdvent(input11,false,computeAdvent11);
+testAdvent(input11,false,computeAdvent11part2);

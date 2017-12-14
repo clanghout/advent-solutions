@@ -12,11 +12,11 @@ To run the code I open index.html in the browser. The console is used to display
 |4|✅|✅|Done with dirty python code instead..|
 |5|✅|✅||
 |6|✅|✅|With @devbridie [(source devbridie/adventofkotlin)](https://github.com/devbridie/adventofkotlin)|
-|7|✅| |:(|
+|7|✅|✅|manual|
 |8|✅|✅||
 |9|✅|✅||
 |10||||
-|11||||
+|11|✅|✅||
 |12||||
 |13||||
 |14||||
