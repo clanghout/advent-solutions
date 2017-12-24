@@ -63,7 +63,7 @@ function doHashRound(curState, i, curPos) {
     return result;
 }
 
-testAdvent(input10, false, computeAdvent10);
+// testAdvent(input10, false, computeAdvent10);
 
 function computeXor(list) {
     let res = 0;
@@ -72,4 +72,4 @@ function computeXor(list) {
 }
 
 let testXor = [65 , 27 , 9 , 1 , 4 , 3 , 40 , 50 , 91 , 7 , 6 , 0 , 2 , 5 , 68 , 22];
-console.log(`text xor ${computeXor(testXor)} : 64`);
+// console.log(`text xor ${computeXor(testXor)} : 64`);
